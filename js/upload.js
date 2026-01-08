@@ -137,8 +137,12 @@ class UploadManager {
 
         this.currentUpload = {
             file: file,
-            savedFile: savedFile
+            savedFile: savedFile,
+            originalFile: file
         };
+
+        // Automatically download file to uploads folder
+        this.downloadFileToUploads(file, savedFile.id);
 
         // Show success
         this.showSuccess(file.name);
@@ -253,6 +257,26 @@ class UploadManager {
     cancelUpload() {
         this.uploadCancelled = true;
         this.resetUpload();
+    }
+
+
+    downloadFileToUploads(file, fileId) {
+        // Create a download link to save file to uploads folder
+        const blob = new Blob([file], { type: file.type });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${fileId}_${file.name}`;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+
+        // Auto-click to trigger download
+        setTimeout(() => {
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
     }
 
     resetUpload() {
