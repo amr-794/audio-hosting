@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رفع ملف صوتي - استضافة الملفات الصوتية</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                        d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm12-2c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h1>استضافة الملفات الصوتية</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="upload.html" class="active">رفع ملف</a></li>
+                <li><a href="playlists.html">قوائم التشغيل</a></li>
+                <li><a href="settings.html">الإعدادات</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Upload Section -->
+    <section class="upload-section">
+        <div class="container">
+            <div class="upload-container">
+                <h2>رفع ملف صوتي جديد</h2>
+
+                <!-- Upload Area -->
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3>اسحب وأفلت الملف الصوتي هنا</h3>
+                    <p>أو</p>
+                    <button class="btn btn-primary" id="selectFileBtn">اختر ملف من جهازك</button>
+                    <input type="file" id="fileInput" accept="audio/*" style="display: none;">
+                    <p class="upload-hint">الصيغ المدعومة: MP3, WAV, OGG, M4A, FLAC</p>
+                </div>
+
+                <!-- Upload Progress -->
+                <div class="upload-progress-container hidden" id="uploadProgressContainer">
+                    <div class="file-info">
+                        <svg class="file-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm12-2c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z" />
+                        </svg>
+                        <div class="file-details">
+                            <div class="file-name" id="uploadFileName">filename.mp3</div>
+                            <div class="file-size" id="uploadFileSize">0 MB</div>
+                        </div>
+                        <button class="cancel-btn" id="cancelUploadBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="uploadProgressFill"></div>
+                        </div>
+                        <div class="progress-info">
+                            <span class="progress-percentage" id="uploadPercentage">0%</span>
+                            <span class="progress-speed" id="uploadSpeed">0 MB/s</span>
+                        </div>
+                    </div>
+
+                    <div class="upload-stats">
+                        <div class="stat">
+                            <span class="stat-label">تم الرفع:</span>
+                            <span class="stat-value" id="uploadedSize">0 MB</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">الوقت المتبقي:</span>
+                            <span class="stat-value" id="timeRemaining">--:--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Success -->
+                <div class="upload-success hidden" id="uploadSuccess">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M22 4L12 14.01l-3-3" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3>تم رفع الملف بنجاح!</h3>
+                    <p id="successFileName">filename.mp3</p>
+
+                    <div class="success-actions">
+                        <button class="btn btn-primary" id="shareUploadedBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="18" cy="5" r="3" stroke-width="2" />
+                                <circle cx="6" cy="12" r="3" stroke-width="2" />
+                                <circle cx="18" cy="19" r="3" stroke-width="2" />
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke-width="2" />
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke-width="2" />
+                            </svg>
+                            مشاركة الملف
+                        </button>
+                        <button class="btn btn-secondary" id="uploadAnotherBtn">رفع ملف آخر</button>
+                        <a href="index.html" class="btn btn-outline">العودة للرئيسية</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>مشاركة الملف الصوتي</h3>
+                <button class="modal-close" id="closeShareModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+                        <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="share-tabs">
+                    <button class="share-tab active" data-tab="embed">كود التضمين</button>
+                    <button class="share-tab" data-tab="direct">رابط مباشر</button>
+                    <button class="share-tab" data-tab="html">HTML5</button>
+                </div>
+
+                <div class="share-content">
+                    <!-- Embed Code Tab -->
+                    <div class="share-panel active" data-panel="embed">
+                        <div class="embed-options">
+                            <div class="option-group">
+                                <label>العرض (px)</label>
+                                <input type="number" id="embedWidth" value="600" min="300" max="1200">
+                            </div>
+                            <div class="option-group">
+                                <label>الارتفاع (px)</label>
+                                <input type="number" id="embedHeight" value="150" min="80" max="400">
+                            </div>
+                            <div class="option-group">
+                                <label>المظهر</label>
+                                <select id="embedTheme">
+                                    <option value="dark">داكن</option>
+                                    <option value="light">فاتح</option>
+                                    <option value="gradient">تدرج</option>
+                                    <option value="minimal">بسيط</option>
+                                </select>
+                            </div>
+                            <div class="option-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="embedAutoplay">
+                                    <span>تشغيل تلقائي</span>
+                                </label>
+                            </div>
+                            <div class="option-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="embedControls" checked>
+                                    <span>إظهار عناصر التحكم</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="preview-section">
+                            <h4>معاينة مباشرة</h4>
+                            <div class="embed-preview" id="embedPreview">
+                                <!-- Live preview will be rendered here -->
+                            </div>
+                        </div>
+
+                        <div class="code-section">
+                            <textarea id="embedCode" readonly></textarea>
+                            <button class="btn btn-primary" id="copyEmbedBtn">نسخ الكود</button>
+                        </div>
+                    </div>
+
+                    <!-- Direct Link Tab -->
+                    <div class="share-panel" data-panel="direct">
+                        <div class="code-section">
+                            <input type="text" id="directLink" readonly>
+                            <button class="btn btn-primary" id="copyDirectBtn">نسخ الرابط</button>
+                        </div>
+                    </div>
+
+                    <!-- HTML5 Tab -->
+                    <div class="share-panel" data-panel="html">
+                        <div class="code-section">
+                            <textarea id="htmlCode" readonly></textarea>
+                            <button class="btn btn-primary" id="copyHtmlBtn">نسخ الكود</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/embed.js"></script>
+    <script src="js/upload.js"></script>
+</body>
+
+</html>

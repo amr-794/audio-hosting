@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استضافة الملفات الصوتية - الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/player.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                        d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm12-2c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h1>استضافة الملفات الصوتية</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">الرئيسية</a></li>
+                <li><a href="upload.html">رفع ملف</a></li>
+                <li><a href="playlists.html">قوائم التشغيل</a></li>
+                <li><a href="settings.html">الإعدادات</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">استضف ملفاتك الصوتية بسهولة</h2>
+                <p class="hero-subtitle">رفع، مشاركة، وتشغيل ملفاتك الصوتية مع نظام تضمين متقدم</p>
+                <a href="upload.html" class="btn btn-primary btn-large">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    رفع ملف صوتي جديد
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalFiles">0</div>
+                    <div class="stat-label">ملف صوتي</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalPlaylists">0</div>
+                    <div class="stat-label">قائمة تشغيل</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalPlays">0</div>
+                    <div class="stat-label">مرة تشغيل</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-bar">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="11" cy="11" r="8" stroke-width="2" />
+                    <path d="M21 21l-4.35-4.35" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <input type="text" id="searchInput" placeholder="ابحث عن ملف صوتي...">
+            </div>
+            <div class="filter-controls">
+                <button class="filter-btn active" data-view="grid">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                </button>
+                <button class="filter-btn" data-view="list">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="8" y1="6" x2="21" y2="6" stroke-width="2" stroke-linecap="round" />
+                        <line x1="8" y1="12" x2="21" y2="12" stroke-width="2" stroke-linecap="round" />
+                        <line x1="8" y1="18" x2="21" y2="18" stroke-width="2" stroke-linecap="round" />
+                        <line x1="3" y1="6" x2="3.01" y2="6" stroke-width="2" stroke-linecap="round" />
+                        <line x1="3" y1="12" x2="3.01" y2="12" stroke-width="2" stroke-linecap="round" />
+                        <line x1="3" y1="18" x2="3.01" y2="18" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+                <select id="sortSelect" class="sort-select">
+                    <option value="date-desc">الأحدث أولاً</option>
+                    <option value="date-asc">الأقدم أولاً</option>
+                    <option value="name-asc">الاسم (أ-ي)</option>
+                    <option value="name-desc">الاسم (ي-أ)</option>
+                    <option value="plays-desc">الأكثر تشغيلاً</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Files Grid -->
+    <section class="files-section">
+        <div class="container">
+            <div id="audioFilesContainer" class="audio-grid">
+                <!-- Audio files will be dynamically loaded here -->
+            </div>
+            <div id="emptyState" class="empty-state">
+                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                        d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm12-2c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h3>لا توجد ملفات صوتية بعد</h3>
+                <p>ابدأ برفع أول ملف صوتي لك</p>
+                <a href="upload.html" class="btn btn-primary">رفع ملف الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Player (Fixed at bottom) -->
+    <div id="globalPlayer" class="global-player hidden">
+        <div class="player-container">
+            <div class="player-info">
+                <div class="player-artwork">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm12-2c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z" />
+                    </svg>
+                </div>
+                <div class="player-details">
+                    <div class="player-title" id="playerTitle">اسم الملف</div>
+                    <div class="player-meta" id="playerMeta">00:00 / 00:00</div>
+                </div>
+            </div>
+            <div class="player-controls">
+                <button class="control-btn" id="prevBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 20L9 12l10-8v16zm-11 0V4H6v16h2z" />
+                    </svg>
+                </button>
+                <button class="control-btn control-btn-play" id="playPauseBtn">
+                    <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                    </svg>
+                </button>
+                <button class="control-btn" id="nextBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 4l10 8-10 8V4zm11 0v16h2V4h-2z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="player-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <input type="range" class="progress-slider" id="progressSlider" min="0" max="100" value="0">
+                </div>
+            </div>
+            <div class="player-volume">
+                <button class="control-btn" id="volumeBtn">
+                    <svg id="volumeIcon" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+                    </svg>
+                </button>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
+            </div>
+            <button class="control-btn" id="closePlayerBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+                    <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+        <audio id="audioElement"></audio>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>مشاركة الملف الصوتي</h3>
+                <button class="modal-close" id="closeShareModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+                        <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="share-tabs">
+                    <button class="share-tab active" data-tab="embed">كود التضمين</button>
+                    <button class="share-tab" data-tab="direct">رابط مباشر</button>
+                    <button class="share-tab" data-tab="html">HTML5</button>
+                </div>
+
+                <div class="share-content">
+                    <!-- Embed Code Tab -->
+                    <div class="share-panel active" data-panel="embed">
+                        <div class="embed-options">
+                            <div class="option-group">
+                                <label>العرض (px)</label>
+                                <input type="number" id="embedWidth" value="600" min="300" max="1200">
+                            </div>
+                            <div class="option-group">
+                                <label>الارتفاع (px)</label>
+                                <input type="number" id="embedHeight" value="150" min="80" max="400">
+                            </div>
+                            <div class="option-group">
+                                <label>المظهر</label>
+                                <select id="embedTheme">
+                                    <option value="dark">داكن</option>
+                                    <option value="light">فاتح</option>
+                                    <option value="gradient">تدرج</option>
+                                    <option value="minimal">بسيط</option>
+                                </select>
+                            </div>
+                            <div class="option-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="embedAutoplay">
+                                    <span>تشغيل تلقائي</span>
+                                </label>
+                            </div>
+                            <div class="option-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="embedControls" checked>
+                                    <span>إظهار عناصر التحكم</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="preview-section">
+                            <h4>معاينة مباشرة</h4>
+                            <div class="embed-preview" id="embedPreview">
+                                <!-- Live preview will be rendered here -->
+                            </div>
+                        </div>
+
+                        <div class="code-section">
+                            <textarea id="embedCode" readonly></textarea>
+                            <button class="btn btn-primary" id="copyEmbedBtn">نسخ الكود</button>
+                        </div>
+                    </div>
+
+                    <!-- Direct Link Tab -->
+                    <div class="share-panel" data-panel="direct">
+                        <div class="code-section">
+                            <input type="text" id="directLink" readonly>
+                            <button class="btn btn-primary" id="copyDirectBtn">نسخ الرابط</button>
+                        </div>
+                    </div>
+
+                    <!-- HTML5 Tab -->
+                    <div class="share-panel" data-panel="html">
+                        <div class="code-section">
+                            <textarea id="htmlCode" readonly></textarea>
+                            <button class="btn btn-primary" id="copyHtmlBtn">نسخ الكود</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/embed.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

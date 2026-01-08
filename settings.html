@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات - استضافة الملفات الصوتية</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                        d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm12-2c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h1>استضافة الملفات الصوتية</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="upload.html">رفع ملف</a></li>
+                <li><a href="playlists.html">قوائم التشغيل</a></li>
+                <li><a href="settings.html" class="active">الإعدادات</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Settings Section -->
+    <section class="settings-section">
+        <div class="container">
+            <h2>الإعدادات</h2>
+
+            <div class="settings-container">
+                <!-- Appearance Settings -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <h3>المظهر</h3>
+                    </div>
+                    <div class="settings-card-body">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>السمة</label>
+                                <p>اختر المظهر العام للموقع</p>
+                            </div>
+                            <select id="themeSelect" class="setting-control">
+                                <option value="dark">داكن</option>
+                                <option value="light">فاتح</option>
+                                <option value="auto">تلقائي</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>سمة المشغل الافتراضية</label>
+                                <p>المظهر الافتراضي لمشغل الصوت</p>
+                            </div>
+                            <select id="playerThemeSelect" class="setting-control">
+                                <option value="dark">داكن</option>
+                                <option value="light">فاتح</option>
+                                <option value="gradient">تدرج</option>
+                                <option value="minimal">بسيط</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player Settings -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                        <h3>المشغل</h3>
+                    </div>
+                    <div class="settings-card-body">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>التشغيل التلقائي</label>
+                                <p>تشغيل الملفات تلقائياً عند النقر عليها</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="autoplayToggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>مستوى الصوت الافتراضي</label>
+                                <p>مستوى الصوت عند بدء التشغيل</p>
+                            </div>
+                            <div class="volume-control">
+                                <input type="range" id="defaultVolumeSlider" min="0" max="100" value="70"
+                                    class="setting-slider">
+                                <span id="volumeValue">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embed Settings -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <h3>إعدادات التضمين الافتراضية</h3>
+                    </div>
+                    <div class="settings-card-body">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>العرض الافتراضي</label>
+                                <p>عرض المشغل المضمن بالبكسل</p>
+                            </div>
+                            <input type="number" id="embedWidthInput" min="300" max="1200" value="600"
+                                class="setting-input">
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>الارتفاع الافتراضي</label>
+                                <p>ارتفاع المشغل المضمن بالبكسل</p>
+                            </div>
+                            <input type="number" id="embedHeightInput" min="80" max="400" value="150"
+                                class="setting-input">
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>سمة التضمين</label>
+                                <p>المظهر الافتراضي للمشغل المضمن</p>
+                            </div>
+                            <select id="embedThemeSelect" class="setting-control">
+                                <option value="dark">داكن</option>
+                                <option value="light">فاتح</option>
+                                <option value="gradient">تدرج</option>
+                                <option value="minimal">بسيط</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>إظهار عناصر التحكم</label>
+                                <p>إظهار أزرار التحكم في المشغل المضمن</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="embedControlsToggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>التشغيل التلقائي في التضمين</label>
+                                <p>تشغيل الملف تلقائياً عند تحميل الصفحة</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="embedAutoplayToggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Storage Settings -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path
+                                d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <h3>التخزين والبيانات</h3>
+                    </div>
+                    <div class="settings-card-body">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>المساحة المستخدمة</label>
+                                <p id="storageUsed">حساب المساحة...</p>
+                            </div>
+                            <div class="storage-bar">
+                                <div class="storage-fill" id="storageFill"></div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>عدد الملفات</label>
+                                <p id="filesCount">0 ملف</p>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>عدد قوائم التشغيل</label>
+                                <p id="playlistsCount">0 قائمة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Management -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <h3>إدارة البيانات</h3>
+                    </div>
+                    <div class="settings-card-body">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>تصدير البيانات</label>
+                                <p>تنزيل نسخة احتياطية من جميع بياناتك</p>
+                            </div>
+                            <button class="btn btn-secondary" id="exportDataBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                تصدير
+                            </button>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>استيراد البيانات</label>
+                                <p>استعادة بياناتك من نسخة احتياطية</p>
+                            </div>
+                            <button class="btn btn-secondary" id="importDataBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                استيراد
+                            </button>
+                            <input type="file" id="importFileInput" accept=".json" style="display: none;">
+                        </div>
+                        <div class="setting-item danger-zone">
+                            <div class="setting-info">
+                                <label>حذف جميع البيانات</label>
+                                <p>حذف جميع الملفات وقوائم التشغيل والإعدادات نهائياً</p>
+                            </div>
+                            <button class="btn btn-danger" id="clearDataBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path
+                                        d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                حذف الكل
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="settings-actions">
+                    <button class="btn btn-primary btn-large" id="saveSettingsBtn">حفظ الإعدادات</button>
+                    <button class="btn btn-secondary" id="resetSettingsBtn">إعادة تعيين</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3 id="confirmTitle">تأكيد العملية</h3>
+                <button class="modal-close" id="closeConfirmModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+                        <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">هل أنت متأكد من هذا الإجراء؟</p>
+                <div class="form-actions">
+                    <button class="btn btn-danger" id="confirmYesBtn">نعم، متأكد</button>
+                    <button class="btn btn-secondary" id="confirmNoBtn">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قوائم التشغيل - استضافة الملفات الصوتية</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                        d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm12-2c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h1>استضافة الملفات الصوتية</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="upload.html">رفع ملف</a></li>
+                <li><a href="playlists.html" class="active">قوائم التشغيل</a></li>
+                <li><a href="settings.html">الإعدادات</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Playlists Section -->
+    <section class="playlists-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>قوائم التشغيل</h2>
+                <button class="btn btn-primary" id="createPlaylistBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" stroke-linecap="round" />
+                        <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    إنشاء قائمة جديدة
+                </button>
+            </div>
+
+            <div id="playlistsContainer" class="playlists-grid">
+                <!-- Playlists will be dynamically loaded here -->
+            </div>
+
+            <div id="emptyState" class="empty-state">
+                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                        d="M19 11H5M19 11c1.657 0 3 1.343 3 3v4c0 1.657-1.343 3-3 3H5c-1.657 0-3-1.343-3-3v-4c0-1.657 1.343-3 3-3M19 11V9c0-1.657-1.343-3-3-3M5 11V9c0-1.657 1.343-3 3-3m0 0V4m0 2h8m0-2v2"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h3>لا توجد قوائم تشغيل بعد</h3>
+                <p>أنشئ قائمة تشغيل لتنظيم ملفاتك الصوتية</p>
+                <button class="btn btn-primary" id="createPlaylistBtnEmpty">إنشاء قائمة الآن</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Create/Edit Playlist Modal -->
+    <div id="playlistModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="playlistModalTitle">إنشاء قائمة تشغيل جديدة</h3>
+                <button class="modal-close" id="closePlaylistModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+                        <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>اسم القائمة</label>
+                    <input type="text" id="playlistName" placeholder="مثال: قائمتي المفضلة">
+                </div>
+                <div class="form-group">
+                    <label>الوصف (اختياري)</label>
+                    <textarea id="playlistDescription" rows="3" placeholder="وصف مختصر للقائمة..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="savePlaylistBtn">حفظ القائمة</button>
+                    <button class="btn btn-secondary" id="cancelPlaylistBtn">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Playlist Details Modal -->
+    <div id="playlistDetailsModal" class="modal modal-large">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h3 id="playlistDetailsTitle">اسم القائمة</h3>
+                    <p id="playlistDetailsDescription">الوصف</p>
+                </div>
+                <button class="modal-close" id="closePlaylistDetailsModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+                        <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="playlist-actions">
+                    <button class="btn btn-primary" id="addTracksBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" stroke-linecap="round" />
+                            <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        إضافة ملفات
+                    </button>
+                    <button class="btn btn-secondary" id="editPlaylistBtn">تعديل القائمة</button>
+                    <button class="btn btn-danger" id="deletePlaylistBtn">حذف القائمة</button>
+                </div>
+
+                <div id="playlistTracksContainer" class="playlist-tracks">
+                    <!-- Tracks will be dynamically loaded here -->
+                </div>
+
+                <div id="emptyPlaylist" class="empty-state-small">
+                    <p>لا توجد ملفات في هذه القائمة</p>
+                    <button class="btn btn-primary" id="addTracksEmptyBtn">إضافة ملفات الآن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Tracks Modal -->
+    <div id="addTracksModal" class="modal modal-large">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إضافة ملفات إلى القائمة</h3>
+                <button class="modal-close" id="closeAddTracksModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+                        <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="search-bar">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8" stroke-width="2" />
+                        <path d="M21 21l-4.35-4.35" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <input type="text" id="trackSearchInput" placeholder="ابحث عن ملف...">
+                </div>
+
+                <div id="availableTracksContainer" class="available-tracks">
+                    <!-- Available tracks will be dynamically loaded here -->
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="confirmAddTracksBtn">إضافة المحدد</button>
+                    <button class="btn btn-secondary" id="cancelAddTracksBtn">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/playlists.js"></script>
+</body>
+
+</html>
