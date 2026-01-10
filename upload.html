@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة صوت جديد - Audio Hosting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18V5l12-2v13" />
+                    <circle cx="6" cy="18" r="3" />
+                    <circle cx="18" cy="16" r="3" />
+                </svg>
+                Audio Hosting
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+                <li><a href="upload.html" class="nav-link active">إضافة صوت</a></li>
+                <li><a href="embed.html" class="nav-link">كود التضمين</a></li>
+                <li><a href="playlists.html" class="nav-link">قوائم التشغيل</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="mb-lg">
+                <h1>إضافة صوت جديد</h1>
+                <p class="text-muted">أضف ملف صوتي من رابط GitHub Raw</p>
+            </div>
+
+            <div class="card" style="max-width: 600px;">
+                <form id="addAudioForm">
+                    <div class="form-group">
+                        <label class="form-label">عنوان الصوت *</label>
+                        <input type="text" class="form-control" id="title" required placeholder="مثال: سورة الفاتحة">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">الفنان / القارئ</label>
+                        <input type="text" class="form-control" id="artist" placeholder="مثال: الشيخ محمد">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">الألبوم</label>
+                        <input type="text" class="form-control" id="album" placeholder="مثال: القرآن الكريم">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">رابط الصوت من GitHub *</label>
+                        <input type="url" class="form-control" id="github_url" required
+                            placeholder="https://raw.githubusercontent.com/user/repo/main/audio.mp3">
+                        <small class="text-muted">استخدم رابط raw من GitHub</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">رابط صورة الغلاف (اختياري)</label>
+                        <input type="url" class="form-control" id="cover_url"
+                            placeholder="https://raw.githubusercontent.com/user/repo/main/cover.jpg">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">المدة (بالثواني)</label>
+                        <input type="number" class="form-control" id="duration" placeholder="180">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                            height="18">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        إضافة الصوت
+                    </button>
+                </form>
+            </div>
+
+            <!-- Help Card -->
+            <div class="card mt-lg" style="max-width: 600px;">
+                <h3 class="mb-md">كيفية الحصول على رابط GitHub Raw</h3>
+                <ol style="margin-right: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                    <li>ارفع ملف الصوت إلى مستودع GitHub الخاص بك</li>
+                    <li>افتح الملف في GitHub</li>
+                    <li>اضغط على زر "Raw" أو "عرض الخام"</li>
+                    <li>انسخ الرابط من شريط العنوان</li>
+                    <li>الرابط يجب أن يبدأ بـ: <code>https://raw.githubusercontent.com/</code></li>
+                </ol>
+            </div>
+        </div>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('addAudioForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const data = {
+                title: document.getElementById('title').value,
+                artist: document.getElementById('artist').value,
+                album: document.getElementById('album').value,
+                github_url: document.getElementById('github_url').value,
+                cover_url: document.getElementById('cover_url').value,
+                duration: parseInt(document.getElementById('duration').value) || 0
+            };
+
+            try {
+                await api.addAudio(data);
+                Toast.success('تم إضافة الصوت بنجاح!');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            } catch (error) {
+                Toast.error(error.message || 'فشل إضافة الصوت');
+            }
+        });
+    </script>
+</body>
+
+</html>

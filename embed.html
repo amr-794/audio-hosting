@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كود التضمين - Audio Hosting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/player.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18V5l12-2v13" />
+                    <circle cx="6" cy="18" r="3" />
+                    <circle cx="18" cy="16" r="3" />
+                </svg>
+                Audio Hosting
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+                <li><a href="upload.html" class="nav-link">إضافة صوت</a></li>
+                <li><a href="embed.html" class="nav-link active">كود التضمين</a></li>
+                <li><a href="playlists.html" class="nav-link">قوائم التشغيل</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="mb-lg">
+                <h1>كود التضمين</h1>
+                <p class="text-muted">اختر ملف صوتي واحصل على كود التضمين</p>
+            </div>
+
+            <!-- Audio Selection -->
+            <div class="card mb-lg">
+                <div class="card-header">
+                    <h3 class="card-title">اختر الملف الصوتي</h3>
+                </div>
+                <select class="form-control" id="audioSelect">
+                    <option value="">-- اختر ملف صوتي --</option>
+                </select>
+            </div>
+
+            <!-- Embed Content -->
+            <div id="embedContent" style="display: none;">
+                <div class="grid grid-2" style="gap: 2rem;">
+                    <!-- Preview -->
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">معاينة المشغل</h3>
+                            </div>
+                            <div class="embed-preview-container">
+                                <span class="embed-preview-label">معاينة</span>
+                                <iframe id="embedPreview" class="embed-preview-frame" src=""></iframe>
+                            </div>
+                        </div>
+
+                        <!-- Embed Codes -->
+                        <div class="card mt-lg">
+                            <div class="card-header">
+                                <h3 class="card-title">أكواد التضمين</h3>
+                            </div>
+
+                            <div class="tabs">
+                                <button class="tab active" data-tab="iframe">iframe</button>
+                                <button class="tab" data-tab="html5">HTML5 Audio</button>
+                                <button class="tab" data-tab="direct">رابط مباشر</button>
+                                <button class="tab" data-tab="js">JavaScript</button>
+                            </div>
+
+                            <div class="tab-contents">
+                                <div class="tab-content active" data-tab="iframe">
+                                    <p class="text-muted mb-sm" style="font-size: 0.85rem;">أفضل طريقة للتضمين</p>
+                                    <div class="code-block" id="iframeCode">
+                                        <div class="code-block-header">
+                                            <span class="code-block-title">HTML iframe</span>
+                                            <button class="btn btn-ghost btn-sm"
+                                                onclick="copyCode('iframe')">نسخ</button>
+                                        </div>
+                                        <code class="code-block-content"></code>
+                                    </div>
+                                </div>
+
+                                <div class="tab-content" data-tab="html5">
+                                    <p class="text-muted mb-sm" style="font-size: 0.85rem;">مشغل HTML5 البسيط</p>
+                                    <div class="code-block" id="html5Code">
+                                        <div class="code-block-header">
+                                            <span class="code-block-title">HTML5 Audio</span>
+                                            <button class="btn btn-ghost btn-sm"
+                                                onclick="copyCode('html5')">نسخ</button>
+                                        </div>
+                                        <code class="code-block-content"></code>
+                                    </div>
+                                </div>
+
+                                <div class="tab-content" data-tab="direct">
+                                    <p class="text-muted mb-sm" style="font-size: 0.85rem;">رابط مباشر للمشغل</p>
+                                    <div class="code-block" id="directCode">
+                                        <div class="code-block-header">
+                                            <span class="code-block-title">Direct Link</span>
+                                            <button class="btn btn-ghost btn-sm"
+                                                onclick="copyCode('direct')">نسخ</button>
+                                        </div>
+                                        <code class="code-block-content"></code>
+                                    </div>
+                                    <a id="testLink" href="#" target="_blank" class="btn btn-primary btn-sm mt-md">فتح
+                                        في نافذة جديدة</a>
+                                </div>
+
+                                <div class="tab-content" data-tab="js">
+                                    <p class="text-muted mb-sm" style="font-size: 0.85rem;">تضمين JavaScript Widget</p>
+                                    <div class="code-block" id="jsCode">
+                                        <div class="code-block-header">
+                                            <span class="code-block-title">JavaScript</span>
+                                            <button class="btn btn-ghost btn-sm" onclick="copyCode('js')">نسخ</button>
+                                        </div>
+                                        <code class="code-block-content"></code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">خيارات التخصيص</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">العرض</label>
+                            <input type="text" class="form-control" id="embedWidth" value="100%">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">الارتفاع (px)</label>
+                            <input type="number" class="form-control" id="embedHeight" value="150">
+                        </div>
+
+                        <label class="form-check mt-md">
+                            <input type="checkbox" id="autoplay"> تشغيل تلقائي
+                        </label>
+
+                        <label class="form-check mt-md">
+                            <input type="checkbox" id="loop"> تكرار
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-state-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                </div>
+                <h3 class="empty-state-title">اختر ملف صوتي</h3>
+                <p class="empty-state-text">اختر ملف صوتي من القائمة للحصول على كود التضمين</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/embed.js"></script>
+    <script>
+        let audios = [];
+        let selectedAudio = null;
+        let embedGen = null;
+
+        async function loadAudios() {
+            try {
+                const response = await api.getAudios();
+                audios = response.audios || [];
+
+                const select = document.getElementById('audioSelect');
+                audios.forEach(audio => {
+                    const option = document.createElement('option');
+                    option.value = audio.id;
+                    option.textContent = `${audio.title} ${audio.artist ? '- ' + audio.artist : ''}`;
+                    select.appendChild(option);
+                });
+
+                // Check URL param
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                if (id) {
+                    select.value = id;
+                    onAudioSelect(id);
+                }
+            } catch (error) {
+                Toast.error('فشل تحميل الملفات الصوتية');
+            }
+        }
+
+        function onAudioSelect(id) {
+            selectedAudio = audios.find(a => a.id == id);
+            if (!selectedAudio) {
+                document.getElementById('embedContent').style.display = 'none';
+                document.getElementById('emptyState').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('embedContent').style.display = 'block';
+            document.getElementById('emptyState').style.display = 'none';
+
+            embedGen = new EmbedGenerator(id);
+            updateCodes();
+            updatePreview();
+        }
+
+        function updateCodes() {
+            if (!embedGen || !selectedAudio) return;
+
+            embedGen.settings.autoplay = document.getElementById('autoplay').checked;
+            embedGen.settings.loop = document.getElementById('loop').checked;
+
+            const codes = embedGen.getAllCodes(selectedAudio.github_url);
+
+            document.querySelector('#iframeCode .code-block-content').textContent = codes.iframe;
+            document.querySelector('#html5Code .code-block-content').textContent = codes.html5;
+            document.querySelector('#directCode .code-block-content').textContent = codes.direct;
+            document.querySelector('#jsCode .code-block-content').textContent = codes.javascript;
+
+            document.getElementById('testLink').href = codes.direct;
+        }
+
+        function updatePreview() {
+            if (!embedGen) return;
+            const url = embedGen.getPlayerUrl();
+            document.getElementById('embedPreview').src = url;
+        }
+
+        function copyCode(type) {
+            const ids = { iframe: 'iframeCode', html5: 'html5Code', direct: 'directCode', js: 'jsCode' };
+            const content = document.querySelector(`#${ids[type]} .code-block-content`).textContent;
+            copyToClipboard(content, 'تم نسخ الكود!');
+        }
+
+        // Events
+        document.getElementById('audioSelect').addEventListener('change', e => onAudioSelect(e.target.value));
+        document.getElementById('autoplay').addEventListener('change', updateCodes);
+        document.getElementById('loop').addEventListener('change', updateCodes);
+
+        initTabs();
+        loadAudios();
+    </script>
+</body>
+
+</html>
