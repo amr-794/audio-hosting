@@ -15,14 +15,24 @@ class ApiClient {
             headers: {
                 'Content-Type': 'application/json',
             },
+            mode: 'cors',
             ...options
         };
 
         try {
             const response = await fetch(url, config);
-            const data = await response.json();
 
-            if (!response.ok) {
+            // Try to parse JSON
+            let data;
+            const text = await response.text();
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                console.error('Invalid JSON response:', text);
+                throw new Error('Server returned invalid response');
+            }
+
+            if (!response.ok || data.success === false) {
                 throw new Error(data.error || 'API request failed');
             }
 
